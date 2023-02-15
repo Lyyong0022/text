@@ -1,98 +1,140 @@
 # 作者:王勇
-# 开发时间:2023/1/10 10:52
+# 开发时间:2023/1/06 12:53
+import sys
+import json
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+import requests
+import prettytable as pt #使字典以表格格式输出
+from PyQt5.QtWidgets import QApplication,QWidget,QMainWindow
+
+import buy
+from main_ui import Ui_Form
 
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(965, 592)
-        self.label_4 = QtWidgets.QLabel(Form)
-        self.label_4.setGeometry(QtCore.QRect(60, 410, 121, 20))
-        self.label_4.setObjectName("label_4")
-        self.pushButton = QtWidgets.QPushButton(Form)
-        self.pushButton.setGeometry(QtCore.QRect(60, 480, 75, 23))
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayoutWidget = QtWidgets.QWidget(Form)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(30, 260, 160, 111))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.label_5 = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_5.setObjectName("label_5")
-        self.verticalLayout.addWidget(self.label_5)
-        self.lineEdit_6 = QtWidgets.QLineEdit(self.verticalLayoutWidget)
-        self.lineEdit_6.setEchoMode(QtWidgets.QLineEdit.Normal)
-        self.lineEdit_6.setObjectName("lineEdit_6")
-        self.verticalLayout.addWidget(self.lineEdit_6)
-        self.label_6 = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_6.setObjectName("label_6")
-        self.verticalLayout.addWidget(self.label_6)
-        self.lineEdit_5 = QtWidgets.QLineEdit(self.verticalLayoutWidget)
-        self.lineEdit_5.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.lineEdit_5.setObjectName("lineEdit_5")
-        self.verticalLayout.addWidget(self.lineEdit_5)
-        self.verticalLayoutWidget_2 = QtWidgets.QWidget(Form)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(30, 30, 160, 201))
-        self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.label = QtWidgets.QLabel(self.verticalLayoutWidget_2)
-        font = QtGui.QFont()
-        font.setFamily("微软雅黑")
-        font.setPointSize(-1)
-        self.label.setFont(font)
-        self.label.setStyleSheet("font-size:14px;\n"
-"font-family:微软雅黑;")
-        self.label.setTextFormat(QtCore.Qt.RichText)
-        self.label.setScaledContents(False)
-        self.label.setObjectName("label")
-        self.verticalLayout_2.addWidget(self.label)
-        self.lineEdit = QtWidgets.QLineEdit(self.verticalLayoutWidget_2)
-        self.lineEdit.setObjectName("lineEdit")
-        self.verticalLayout_2.addWidget(self.lineEdit)
-        self.label_2 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
-        font = QtGui.QFont()
-        font.setFamily("微软雅黑")
-        font.setPointSize(14)
-        self.label_2.setFont(font)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout_2.addWidget(self.label_2)
-        self.lineEdit_3 = QtWidgets.QLineEdit(self.verticalLayoutWidget_2)
-        self.lineEdit_3.setObjectName("lineEdit_3")
-        self.verticalLayout_2.addWidget(self.lineEdit_3)
-        self.label_3 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
-        self.label_3.setStyleSheet("font-size:14px;\n"
-"font-family:微软雅黑;")
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout_2.addWidget(self.label_3)
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.verticalLayoutWidget_2)
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.verticalLayout_2.addWidget(self.lineEdit_2)
-        self.pushButton_2 = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout_2.addWidget(self.pushButton_2)
-        self.textBrowser = QtWidgets.QTextBrowser(Form)
-        self.textBrowser.setGeometry(QtCore.QRect(270, 30, 681, 471))
-        self.textBrowser.setObjectName("textBrowser")
-        self.lineEdit_4 = QtWidgets.QLineEdit(Form)
-        self.lineEdit_4.setGeometry(QtCore.QRect(30, 440, 158, 20))
-        self.lineEdit_4.setObjectName("lineEdit_4")
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
 
-    def retranslateUi(self, Form):
-        _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        self.label_4.setText(_translate("Form", "购买的车票序号："))
-        self.pushButton.setText(_translate("Form", "自动购票"))
-        self.label_5.setText(_translate("Form", "<html><head/><body><p align=\"center\">输入账号</p></body></html>"))
-        self.label_6.setText(_translate("Form", "<html><head/><body><p align=\"center\">输入密码</p></body></html>"))
-        self.label.setText(_translate("Form", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; color:#00007f;\">始发站</span></p></body></html>"))
-        self.label_2.setText(_translate("Form", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#00007f;\">目的地</span></p></body></html>"))
-        self.label_3.setText(_translate("Form", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; color:#00007f;\">出发日期</span></p></body></html>"))
-        self.pushButton_2.setText(_translate("Form", "查询车票"))
+def tickets(from_station,to_station,train_date):
+    global exel
+    city_code = open('city.json',encoding='utf-8')
+    exel = pt.PrettyTable()
+    txt = json.loads(city_code.read())
+    url = f'https://kyfw.12306.cn/otn/leftTicket/queryZ?leftTicketDTO.train_date={train_date}&leftTicketDTO.from_station={txt[from_station]}&leftTicketDTO.to_station={txt[to_station]}&purpose_codes=ADULT'
+    headers = {
+        'Cookie': 'JSESSIONID=457CBEEC9A105215D62986E3853AD187; tk=eCT4dGXriKNKBvf5kPNzXGnOlIjyjld21h4f38m8uHU09W1W0; BIGipServerotn=1306067210.64545.0000; guidesStatus=off; highContrastMode=defaltMode; cursorStatus=off; BIGipServerpassport=803733770.50215.0000; RAIL_EXPIRATION=1673665585043; RAIL_DEVICEID=PeBP8ufzKNWwD5xEJkcDemdvt09xxYdgEjToOYM10BsHiy9pQ9zJbblIIKubSeGa8T_3L4jl-HWRs-oiUdxJYGeP6yYdRqs4Mur3dFoh48id284XR-u_oUzW92rgeo9W-xKLGJUeTw_Aw9uD7MmhxbJk4w_7vk1-; route=9036359bb8a8a461c164a04f8f50b252; uKey=5de41e2b6782c15836eb3ff1bf3c8e62c68e7a5fa4a5f8bcaea96e43515d656b; fo=c5ybula5nvau8pw4uIdv-L0KuAvXQC93F7mP5PzqEe2lxCcXIj55PRnSYSihXsuJ5o7gKayPIDFcYVzj63y0DD86Rlac_1XT3Vmkdvd0b6ay8qw4HkClRfR-cEht9RTZ52u9A45kpW9HvgHfaj7siLoPUXrixEAx_zD6wBDJ_gwItf94Nd5Iap_j-BE; current_captcha_type=Z; _jc_save_fromStation=%u6D1B%u9633%u9F99%u95E8%2CLLF; _jc_save_toStation=%u897F%u5B89%u5317%2CEAY; _jc_save_fromDate=2023-01-10; _jc_save_toDate=2023-01-10; _jc_save_wfdc_flag=dc',
+        'Host': 'kyfw.12306.cn',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.76',
+        'X-Requested-With': 'XMLHttpRequest'
+    }
+    response = requests.get(url=url,headers=headers).json()['data']['result']
+    page = 0
+    exel.field_names = [
+        '序号',
+        '车次',
+        '出发时间',
+        '到达时间',
+        '耗时',
+        '特等',
+        '一等',
+        '二等',
+        '高软',
+        '软卧',
+        '硬卧',
+        '硬座',
+        '无座'
+    ]
+    for index in response:
+        inf = index.split('|')
+        num = inf[3]
+        star_time = inf[8]
+        end_time = inf[9]
+        elapsed_time = inf[10]
+        normal_seat = inf[32]
+        FirstClass = inf[31]
+        second_class = inf[30]
+        PSS = inf[21]
+        SS = inf[23]
+        H_S = inf[28]
+        HS = inf[29]
+        nS = inf[26]
+
+        exel.add_row([
+            page,
+            num,
+            star_time,
+            end_time,
+            elapsed_time,
+            normal_seat,
+            FirstClass,
+            second_class,
+            PSS,
+            SS,
+            H_S,
+            HS,
+            nS
+        ])
+        page+=1
+    exel = str(exel)
+    print(exel)
+    return exel
+    # serNum = int(input('请输入预定车次(序号)：'))
+    # buy.train_ticket(from_station,to_station,train_date,serNum)
+
+def demo(a,b,c):
+    d = a+b+c
+    return d
+
+
+
+class MainWindow(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.init_ui()
+
+    def init_ui(self):
+        # 使用ui文件导入定义界面类
+        self.ui = Ui_Form()
+        # 初始化界面,以加载各种部件(重要)
+        self.ui.setupUi(self)
+        #加载ui文件中的控件
+        self.start_station = self.ui.lineEdit #出发车站输入框
+        self.end_station = self.ui.lineEdit_3 #目的地车站输入框
+        self.start_time = self.ui.lineEdit_2 #出发时间输入框
+        self.num = self.ui.lineEdit_4  #
+        self.btn1 = self.ui.pushButton_2 #查询按钮
+        self.btn2 = self.ui.pushButton   #购买按钮
+        self.textBrowser = self.ui.textBrowser  # 文本显示区域
+        self.username = self.ui.lineEdit_6
+        self.passname = self.ui.lineEdit_5
+
+
+        self.btn1.clicked.connect(self.search)  #不能加括号，否则该槽函数将自动执行
+        self.btn2.clicked.connect(self.buy)
+
+
+    def search(self):
+        from_station = self.start_station.text()
+        to_station = self.end_station.text()
+        train_date = self.start_time.text()
+        # print(from_station,to_station,train_date)
+        self.a = tickets(from_station,to_station,train_date)
+        print(self.a)
+        self.textBrowser.setText(self.a)
+        self.textBrowser.repaint()
+    def buy(self):
+        from_station = self.start_station.text()
+        to_station = self.end_station.text()
+        train_date = self.start_time.text()
+        serNum = self.num.text()
+        Username = self.username.text()
+        Password = self.passname.text()
+        buy.train_ticket(from_station, to_station, train_date, int(serNum),Username,Password)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    # 对ui进行再次布局与设置
+    mainw = MainWindow()
+    mainw.show()
+    app.exec_()
+    # tickets('洛阳龙门','郑州东','2023-01-25')
